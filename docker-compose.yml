@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql://admin:estacionPass2025@db:5432/estacioncafedb
+    depends_on:
+      - db
+    networks:
+      - cafe-network
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=estacioncafedb
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=estacionPass2025
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cafe-network
+
+volumes:
+  postgres_data:
+
+networks:
+  cafe-network:
+    driver: bridge
