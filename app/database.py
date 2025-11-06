@@ -6,9 +6,10 @@ import os
 import time
 
 # CONEXIÓN A POSTGRESQL EN DOCKER
-DATABASE_URL = "postgresql://admin:estacionPass2025@localhost:5555/estacioncafedb"
-
-print(f"🔗 Conectando a PostgreSQL en Docker: postgresql://admin:****@localhost:5555/estacioncafedb")
+DATABASE_URL = os.environ.get(
+    "DATABASE_URL", 
+    "postgresql://admin:estacionPass2025@localhost:5555/estacioncafedb" 
+)
 
 # Configurar engine con parámetros corregidos
 engine = create_engine(
